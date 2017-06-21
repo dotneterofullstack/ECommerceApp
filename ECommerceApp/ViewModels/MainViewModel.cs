@@ -12,12 +12,19 @@ namespace ECommerceApp.ViewModels
             get;
             set;
         }
+
+        public LoginViewModel NewLogin
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Constructors
         public MainViewModel()
         {
             Menu = new ObservableCollection<MenuItemViewModel>();
+            NewLogin = new LoginViewModel();
             LoadMenu();
         }
         #endregion

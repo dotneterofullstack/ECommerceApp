@@ -34,6 +34,11 @@ namespace ECommerceApp.Services
             }
         }
 
+        internal void SetMainPage()
+        {
+            App.Current.MainPage = new MasterPage();
+        }
+
         public NavigationService()
         {
         }
