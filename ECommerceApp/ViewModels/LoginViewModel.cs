@@ -1,15 +1,18 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Input;
 using ECommerceApp.Services;
 using GalaSoft.MvvmLight.Command;
 
 namespace ECommerceApp.ViewModels
 {
-    public class LoginViewModel
+    public class LoginViewModel : INotifyPropertyChanged
     {
         #region Attributes
         private NavigationService navigationService;
         private DialogService dialogService;
+        private ApiService apiService;
+        private bool isRunning;
         #endregion
 
         #region Properties
@@ -29,6 +32,20 @@ namespace ECommerceApp.ViewModels
         {
             get;
             set;
+        }
+
+        public bool IsRunning
+        {
+            get { return isRunning; }
+            set 
+            {
+                if (isRunning != value) 
+                {
+                    isRunning = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(
+                        nameof(IsRunning)));
+                }
+            }
         }
         #endregion
 
@@ -52,6 +69,16 @@ namespace ECommerceApp.ViewModels
 				return;
 			}
 
+            IsRunning = true;
+            var response = await apiService.Login(User, Password);
+            IsRunning = false;
+
+            if (!response.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error", response.Message);
+                return;
+            }
+
             navigationService.SetMainPage();
         }
 
@@ -62,7 +89,14 @@ namespace ECommerceApp.ViewModels
         {
             navigationService = new NavigationService();
             dialogService = new DialogService();
+            apiService = new ApiService();
+
+            IsRemembered = true;
         }
+        #endregion
+
+        #region Events
+        public event PropertyChangedEventHandler PropertyChanged;
         #endregion
     }
 }
