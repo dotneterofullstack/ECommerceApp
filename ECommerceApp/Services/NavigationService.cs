@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using ECommerceApp.Models;
 using ECommerceApp.Pages;
+using ECommerceApp.ViewModels;
 
 namespace ECommerceApp.Services
 {
@@ -48,6 +49,7 @@ namespace ECommerceApp.Services
         internal void SetMainPage(User user)
         {
             App.CurrentUser = user;
+            MainViewModel.GetInstance().LoadUser(user);
             App.Current.MainPage = new MasterPage();
         }
 

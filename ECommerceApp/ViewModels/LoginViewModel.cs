@@ -86,6 +86,8 @@ namespace ECommerceApp.ViewModels
             user.Password = Password;
 
             dataService.InsertUser(user);
+            User = string.Empty;
+            Password = string.Empty;
             navigationService.SetMainPage(user);
         }
 

@@ -43,7 +43,14 @@ namespace ECommerceApp.Models
         public bool IsSupplier { get; set; }
 
         public bool IsRemembered { get; set; }
+
         public string Password { get; internal set; }
+
+        public string FullName
+            => $"{FirstName} {LastName}";
+
+        public string PhotoFullPath
+            => $"http://zulu-software.com/ECommerce/{Photo.Substring((1))}";
 
         public override int GetHashCode()
         {

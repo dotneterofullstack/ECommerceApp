@@ -11,13 +11,15 @@ namespace ECommerceApp
     {
         #region Attributes
         private DataService dataService;
+        private NavigationService navigationService;
         #endregion
 
         #region Properties
-        public static NavigationPage Navigator { get; internal set; }
+        public static NavigationPage Navigator { get; set; }
 
-        public static MasterPage Master { get; internal set; }
-        public static User CurrentUser { get; internal set; }
+        public static MasterPage Master { get; set; }
+
+        public static User CurrentUser { get; set; }
         #endregion
 
         #region Constructors
@@ -25,13 +27,15 @@ namespace ECommerceApp
         {
             InitializeComponent();
             dataService = new DataService();
+            navigationService = new NavigationService();
 
             var user = dataService.GetUser();
 
             if (user != null && user.IsRemembered)
             {
-                App.CurrentUser = user;
-                MainPage = new MasterPage();
+                //App.CurrentUser = user;
+                //MainPage = new MasterPage();
+                navigationService.SetMainPage(user);
             }
             else
             {

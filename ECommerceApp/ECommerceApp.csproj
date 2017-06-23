@@ -113,6 +113,20 @@
     <Compile Include="Interfaces\IConfig.cs" />
     <Compile Include="Data\DataAccess.cs" />
     <Compile Include="Services\DataService.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="Models\Inventory.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Tax.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\CompanyCustomer.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\City.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderDetail.cs" />
+    <Compile Include="Models\State.cs" />
+    <Compile Include="Models\OrderDetailTmp.cs" />
+    <Compile Include="Models\Sale.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
@@ -147,6 +161,9 @@
     </Reference>
     <Reference Include="SQLiteNetExtensions">
       <HintPath>..\packages\SQLiteNetExtensions.1.3.0\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\SQLiteNetExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageCircle.Forms.Plugin.Abstractions">
+      <HintPath>..\packages\Xam.Plugins.Forms.ImageCircle.1.8.1\lib\portable-net45+wp80+win8+wpa81\ImageCircle.Forms.Plugin.Abstractions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

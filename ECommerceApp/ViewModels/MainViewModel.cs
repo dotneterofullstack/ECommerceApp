@@ -1,11 +1,31 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using ECommerceApp.Models;
 using ECommerceApp.Pages;
+using ECommerceApp.Services;
 
 namespace ECommerceApp.ViewModels
 {
     public class MainViewModel
     {
+        #region Attributes
+        private DataService dataService;
+        #endregion
+
+        #region Singleton
+        private static MainViewModel instance;
+
+        public static MainViewModel GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new MainViewModel();
+            }
+
+            return instance;
+        }
+        #endregion
+
         #region Properties
         public ObservableCollection<MenuItemViewModel> Menu
         {
@@ -18,18 +38,35 @@ namespace ECommerceApp.ViewModels
             get;
             set;
         }
+
+        public UserViewModel UserLogged
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Constructors
         public MainViewModel()
         {
+            instance = this;
+
             Menu = new ObservableCollection<MenuItemViewModel>();
             NewLogin = new LoginViewModel();
+            UserLogged = new UserViewModel();
+            dataService = new DataService();
+
             LoadMenu();
         }
-        #endregion
+		#endregion
 
-        #region Methods
+		#region Methods
+        public void LoadUser(User user)
+		{
+			UserLogged.FullName = user.FullName;
+			UserLogged.Photo = user.PhotoFullPath;
+		}
+
         private void LoadMenu()
         {
             Menu.Add(new MenuItemViewModel{
