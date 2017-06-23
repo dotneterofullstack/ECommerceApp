@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Input;
+using ECommerceApp.Models;
 using ECommerceApp.Services;
 using GalaSoft.MvvmLight.Command;
 
@@ -12,6 +13,7 @@ namespace ECommerceApp.ViewModels
         private NavigationService navigationService;
         private DialogService dialogService;
         private ApiService apiService;
+        private DataService dataService;
         private bool isRunning;
         #endregion
 
@@ -79,7 +81,12 @@ namespace ECommerceApp.ViewModels
                 return;
             }
 
-            navigationService.SetMainPage();
+            var user = response.Result as User;
+            user.IsRemembered = IsRemembered;
+            user.Password = Password;
+
+            dataService.InsertUser(user);
+            navigationService.SetMainPage(user);
         }
 
         #endregion
@@ -90,6 +97,7 @@ namespace ECommerceApp.ViewModels
             navigationService = new NavigationService();
             dialogService = new DialogService();
             apiService = new ApiService();
+            dataService = new DataService();
 
             IsRemembered = true;
         }

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ECommerceApp.Models;
 using ECommerceApp.Pages;
 
 namespace ECommerceApp.Services
 {
     public class NavigationService
     {
+        private DataService dataService;
+
         public async Task Navigate(string pageName) 
         {
             App.Master.IsPresented = false;
@@ -29,18 +32,28 @@ namespace ECommerceApp.Services
                 case nameof(SyncPage):
 					await App.Navigator.PushAsync(new SyncPage());
 					break;
-                default:
+                case "LogoutPage":
+                    Logout();
                     break;
             }
         }
 
-        internal void SetMainPage()
+        private void Logout()
         {
+            App.CurrentUser.IsRemembered = false;
+            dataService.UpdateUser(App.CurrentUser);
+            App.Current.MainPage = new LoginPage();
+        }
+
+        internal void SetMainPage(User user)
+        {
+            App.CurrentUser = user;
             App.Current.MainPage = new MasterPage();
         }
 
         public NavigationService()
         {
+            dataService = new DataService();
         }
     }
 }

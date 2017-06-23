@@ -1,8 +1,12 @@
 ﻿using System;
+using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
+
 namespace ECommerceApp.Models
 {
     public class User
     {
+        [PrimaryKey]
 		public int UserId { get; set; }
 		
         public string UserName { get; set; }
@@ -26,7 +30,8 @@ namespace ECommerceApp.Models
         public string CityName { get; set; }
 		
         public int CompanyId { get; set; }
-		
+
+		[ManyToOne()]
         public Company Company { get; set; }
 		
         public bool IsAdmin { get; set; }
@@ -36,5 +41,13 @@ namespace ECommerceApp.Models
         public bool IsCustomer { get; set; }
 		
         public bool IsSupplier { get; set; }
+
+        public bool IsRemembered { get; set; }
+        public string Password { get; internal set; }
+
+        public override int GetHashCode()
+        {
+            return UserId;
+        }
     }
 }
